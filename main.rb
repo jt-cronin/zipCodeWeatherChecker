@@ -30,30 +30,13 @@ response_JSON = JSON.parse(response_body)
 lat = response_JSON['results'][0]['geometry']['location']['lat']
 lng = response_JSON['results'][0]['geometry']['location']['lng']
 
+# puts currentTemp(parseWeather(openWeather(url(lat,lng))))
 
-def url(lat, lng) 
-	"https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng}?exclude=flags,alerts,hourly,minutely,daily"
-end
-
-def openWeather(url)
-	open(url(lat, lng)).read
-end
-
-def parseWeather(openWeather)
-	JSON.parse(openWeather)
-end
-
-def currentTemp(parseWeather)
-	parseWeather['currently']['temperature']
-end
-
-puts currentTemp(parseWeather(openWeather(url(lat,lng))))
-
-# weather = open("https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng}?exclude=flags,alerts,hourly,minutely,daily")
-# weather_body = weather.read
-# weather_JSON = JSON.parse(weather_body)
-# currentTemp =  weather_JSON['currently']['temperature']
-# puts "the current temp is #{currentTemp}"
+weather = open("https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng}?exclude=flags,alerts,hourly,minutely,daily")
+weather_body = weather.read
+weather_JSON = JSON.parse(weather_body)
+currentTemp =  weather_JSON['currently']['temperature']
+puts "the current temp is #{currentTemp}"
 
 
 
