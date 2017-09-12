@@ -1,14 +1,14 @@
 require 'spec_helper'
-require_relative '../main.rb'
+require_relative '../functions.rb'
 
 
 
 describe 'valid_Zip' do
 	it 'makes sure that the user input is five digits and only numbers' do
-		input1 = zipCodeCheck(55555)
-		input2 = zipCodeCheck(jaowi)
-		expect(input1).to eq(55555)
-		expect(input2).to eq(nil)
+		input1 = zipValidate("55555")
+		input2 = zipValidate("jaowi")
+		expect(input1).to eq(true)
+		expect(input2).to eq(false)
 	end
 end
 
