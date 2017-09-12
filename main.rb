@@ -28,11 +28,12 @@ website = open("http://maps.googleapis.com/maps/api/geocode/json?components=post
 response_status = website.status
 response_body = website.read
 response_JSON = JSON.parse(response_body)
-
+lat = response_JSON['results'][0]['geometry']['location']['lat']
+lng = response_JSON['results'][0]['geometry']['location']['lng']
 
 puts response_status
-binding.pry
-puts response_JSON['results'][0]['geometry']['location']
+puts "the latitude is #{lat}"
+puts "the longitude is #{lng}"
 
 
 
