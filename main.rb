@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'pry'
 require 'json'
-
+require_relative 'functions.rb'
 
 
 
