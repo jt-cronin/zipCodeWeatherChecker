@@ -41,18 +41,24 @@ def changeTemp(a)
 end
 
 
+#Would be the current weather class
 
+# weather = open("https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng}?exclude=flags,alerts,hourly,minutely,daily")
+# weather_body = weather.read
+# weather_JSON = JSON.parse(weather_body)
+# currentTemp =  weather_JSON['currently']['temperature']
+# puts "the current temp is #{currentTemp}"
 
 def url(lat, lng) 
 	"https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng}?exclude=flags,alerts,hourly,minutely,daily"
 end
 
-def openWeather(url)
-	open(url(lat, lng)).read
+def openWeather(a, b)
+	open(url(a, b)).read
 end
 
-def parseWeather(openWeather)
-	JSON.parse(openWeather)
+def parseWeather(a)
+	JSON.parse(a)
 end
 
 def currentTemp(parseWeather)
