@@ -2,36 +2,52 @@ require 'pry'
 
 
 
-#Checks to make sure that the user input is a valid zipcode, being five number digits '#####'
-#
-#input = user input that comes in as a string
-#
-#Returns true if the conditions are met, and false if not
-def zipValidate(input)
-	valid = false
-	if (input.length == 5) && (input.to_i > 9999)
-		valid = true
+class ZipCodeClass
+	def zipInputConvert (input)
+		code = "#{input}"
 	end
-	return valid
-end
 
 
-#Takes input from the user, changes it into a string, and sends it zipValidate to be checked.
-#Until the zipValidate is true, it will keep asking for a zipcode
-#
-#input = the text that the user input
-#
-#returns the user's input if it has been found true
-def zipCodeCheck(input)
-	code = "#{input}"
-	until (zipValidate(code) == true)
+	def is_length (input)
+		input.length == 5
+	end
+
+	def is_integer (input)
+		input.to_i > 9999
+	end
+
+	
+	def zipRe
 		puts "Your code must only have five numbers"
-		code = gets.chomp
+		input = gets.chomp
 	end
-	return code
+
+	#Checks to make sure that the user input is a valid zipcode, being five number digits '#####'
+	#
+	#input = user input that comes in as a string
+	#
+	#Returns true if the conditions are met, and false if not
+	def zipValidate(input)
+		is_length(input) && is_integer(input)
+		# (input.to_i > 9999) && (input.length == 5)
+	end
+
+
+
+	#Takes input from the user, changes it into a string, and sends it zipValidate to be checked.
+	#Until the zipValidate is true, it will keep asking for a zipcode
+	#
+	#input = the text that the user input
+	#
+	#returns the user's input if it has been found true
+	def zipCodeCheck(input)
+		until (zipValidate(zipInputConvert(input)) == true)
+			input = zipRe()
+		end
+		return input
+	end
+
 end
-
-
 #Finds the difference between the two numbewrs that are being passed in
 #
 #a = the first number being passed
@@ -52,13 +68,7 @@ end
 #
 #Should return true if the number is less than 1, and false if a is greater than 1
 def changeTemp(a)
-	sameT = false
-	if (a > 1)
-		sameT = false
-	else
-		sameT = true
-	end
-	return sameT
+	a <= 1
 end
 
 #Prints out a statement

@@ -6,10 +6,15 @@ require_relative 'functions.rb'
 
 welcome = "What zip code would you like to look up?"
 
-puts welcome
 
-zipCode = gets.chomp
-zipCode = zipCodeCheck(zipCode)
+puts welcome
+userInput= gets.chomp
+
+zip = ZipCodeClass.new
+
+zipCode = zip.zipCodeCheck(userInput)
+
+
 zipLat = ZipCodeConvert.new
 zipLng = ZipCodeConvert.new
 

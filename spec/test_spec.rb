@@ -5,7 +5,7 @@ require_relative '../functions.rb'
 
 describe 'valid_Zip' do
 	it 'makes sure that the user input is five digits and only numbers' do
-		input1 = zipValidate("55555")
+		input1 = zipValidate("68022")
 		input2 = zipValidate("jaowi")
 		expect(input1).to eq(true)
 		expect(input2).to eq(false)
