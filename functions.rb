@@ -61,6 +61,11 @@ def changeTemp(a)
 	return sameT
 end
 
+#Prints out a statement
+#
+#tf = boolean value
+#
+#Prints either statement based on what the boolean returned
 def printTemp(tf)
 	if tf == false
 		puts "There was a significant change of temperature from yesterday"
