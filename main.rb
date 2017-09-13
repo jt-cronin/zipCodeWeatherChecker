@@ -10,9 +10,11 @@ puts welcome
 
 zipCode = gets.chomp
 zipCode = zipCodeCheck(zipCode)
+zipLat = ZipCodeConvert.new
+zipLng = ZipCodeConvert.new
 
-lat = latitude(parse_location(website_response(zipCode)))
-lng = longitude(parse_location(website_response(zipCode)))
+lat = zipLat.latitude(zipLat.parse_location(zipLat.website_response(zipCode)))
+lng = zipLng.longitude(zipLng.parse_location(zipLng.website_response(zipCode)))
 
 # temp = WeatherClass.new
 currentT = WeatherClass.new
@@ -38,8 +40,5 @@ dif = tempDifference(temp, yesterdayTemp)
 
 puts "the difference in temperature is #{dif.round(3)}"
 
-if changeTemp(dif) == false
-	puts "There was a significant change of temperature from yesterday"
-else
-	puts "There isnt really a change in temperature from yesterday"
-end
+printTemp(changeTemp(dif))
+
