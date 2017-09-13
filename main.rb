@@ -14,22 +14,32 @@ zipCode = zipCodeCheck(zipCode)
 lat = latitude(parse_location(website_response(zipCode)))
 lng = longitude(parse_location(website_response(zipCode)))
 
-temp = currentTemp(parseWeather(openWeather(lat,lng)))
+# temp = WeatherClass.new
+currentT = WeatherClass.new
+temp = currentT.openWeather(lat, lng)
+temp = currentT.parseWeather(temp)
+temp = currentT.currentTemp(temp)
+
 puts "the current temp is #{temp}"
 
-yesterday = yesterdayTime()
+yesterday = FindTime.new
 
-ytemp = open_ytemp(lat, lng, yesterday)
-ytemp = parse_ytemp(ytemp)
-ytemp = yesterdayTemp(ytemp)
-puts "the temp yesterday at this time was #{ytemp}"
+y = yesterday.yesterdayTime()
 
-dif = tempDifference(temp, ytemp)
 
-puts "the difference in temperature is #{dif}"
+ytemp = YesterdayWeather.new
+
+yesterdayTemp = ytemp.yesterdayTemp(ytemp.parse_ytemp(ytemp.open_ytemp(lat, lng, y)))
+
+
+puts "the temp yesterday at this time was #{yesterdayTemp}"
+
+dif = tempDifference(temp, yesterdayTemp)
+
+puts "the difference in temperature is #{dif.round(3)}"
 
 if changeTemp(dif) == false
-	puts "There was a significant change in temperature"
+	puts "There was a significant change of temperature from yesterday"
 else
 	puts "There isnt really a change in temperature from yesterday"
 end

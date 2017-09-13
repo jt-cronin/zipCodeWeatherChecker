@@ -1,16 +1,29 @@
 require 'pry'
 
-def zipValidate(a)
+
+
+#Checks to make sure that the user input is a valid zipcode, being five number digits '#####'
+#
+#input = user input that comes in as a string
+#
+#Returns true if the conditions are met, and false if not
+def zipValidate(input)
 	valid = false
-	if (a.length == 5) && (a.to_i > 9999)
+	if (input.length == 5) && (input.to_i > 9999)
 		valid = true
 	end
 	return valid
 end
 
 
-def zipCodeCheck(a)
-	code = "#{a}"
+#Takes input from the user, changes it into a string, and sends it zipValidate to be checked.
+#Until the zipValidate is true, it will keep asking for a zipcode
+#
+#input = the text that the user input
+#
+#returns the user's input if it has been found true
+def zipCodeCheck(input)
+	code = "#{input}"
 	until (zipValidate(code) == true)
 		puts "Your code must only have five numbers"
 		code = gets.chomp
@@ -19,7 +32,12 @@ def zipCodeCheck(a)
 end
 
 
-
+#Finds the difference between the two numbewrs that are being passed in
+#
+#a = the first number being passed
+#b = the second number being passed
+#
+#returns a positive integer that is the differnece between the two numbers(also known as the absolute value of the difference)
 def tempDifference(a,b)
 	temp = a - b
 	if (temp < 0)
@@ -28,7 +46,11 @@ def tempDifference(a,b)
 	return temp
 end
 
-
+#Checks to see if an integer is greater than 1
+#
+#a = integer to be tested 
+#
+#Should return true if the number is less than 1, and false if a is greater than 1
 def changeTemp(a)
 	sameT = false
 	if (a > 1)
@@ -41,12 +63,6 @@ end
 
 
 #ZIPCODE CLASS
-
-# location = open("http://maps.googleapis.com/maps/api/geocode/json?components=postal_code:#{zipCode}")
-# response_body = location.read
-# response_JSON = JSON.parse(response_body)
-# lat = response_JSON['results'][0]['geometry']['location']['lat']
-# lng = response_JSON['results'][0]['geometry']['location']['lng']
 
 def urlZip(zipCode)
 	"http://maps.googleapis.com/maps/api/geocode/json?components=postal_code:#{zipCode}"
@@ -69,41 +85,36 @@ def longitude(a)
 end
 
 
-#CURRENT WEATHER CLASS
+class WeatherClass 
+	def url(lat, lng) 
+		"https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng}?exclude=flags,alerts,hourly,minutely,daily"
+	end
 
-# weather = open("https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng}?exclude=flags,alerts,hourly,minutely,daily")
-# weather_body = weather.read
-# weather_JSON = JSON.parse(weather_body)
-# currentTemp =  weather_JSON['currently']['temperature']
-# puts "the current temp is #{currentTemp}"
-def url(lat, lng) 
-	"https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng}?exclude=flags,alerts,hourly,minutely,daily"
-end
+	def openWeather(a, b)
+		open(url(a, b)).read
+	end
 
-def openWeather(a, b)
-	open(url(a, b)).read
-end
+	def parseWeather(a)
+		JSON.parse(a)
+	end
 
-def parseWeather(a)
-	JSON.parse(a)
-end
-
-def currentTemp(parseWeather)
-	parseWeather['currently']['temperature']
-end
-
-#YESTERDAY CLASS
-
-def setTime
-	Time.new.to_i
-end
-
-def yesterdayTime
-	setTime() - 86400
+	def currentTemp(parseWeather)
+		parseWeather['currently']['temperature']
+	end
 end
 
 
-#YESTERDAY WEATHER CLASS
+class FindTime
+	def setTime
+		Time.new.to_i
+	end
+
+	def yesterdayTime
+		setTime() - 86400
+	end
+end
+
+class YesterdayWeather
 	def ytemp_url (lat, lng, yesterday)
 		"https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng},#{yesterday}?exclude=flags,alerts,hourly,minutely,daily"
 	end
@@ -119,4 +130,4 @@ end
 	def yesterdayTemp (py)
 		py['currently']['temperature']
 	end
-
+end
