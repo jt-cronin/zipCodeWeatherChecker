@@ -9,7 +9,6 @@ def zipValidate(a)
 end
 
 
-
 def zipCodeCheck(a)
 	code = "#{a}"
 	until (zipValidate(code) == true)
@@ -93,5 +92,31 @@ def currentTemp(parseWeather)
 	parseWeather['currently']['temperature']
 end
 
+#YESTERDAY CLASS
 
+def setTime
+	Time.new.to_i
+end
+
+def yesterdayTime
+	setTime() - 86400
+end
+
+
+#YESTERDAY WEATHER CLASS
+	def ytemp_url (lat, lng, yesterday)
+		"https://api.darksky.net/forecast/417cf2294f994c32942f8907ab079e31/#{lat},#{lng},#{yesterday}?exclude=flags,alerts,hourly,minutely,daily"
+	end
+
+	def open_ytemp (lat, lng, yesterday)
+		open(ytemp_url(lat, lng, yesterday)).read
+	end
+
+	def parse_ytemp (oy)
+		JSON.parse(oy)
+	end
+
+	def yesterdayTemp (py)
+		py['currently']['temperature']
+	end
 
