@@ -1,3 +1,7 @@
+require 'rubygems'
+require 'bundler/setup'
+
+
 require 'open-uri'
 require 'pry'
 require 'json'
